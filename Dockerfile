@@ -1,3 +1,4 @@
+
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements. See the NOTICE file
 # distributed with this work for additional information
@@ -22,7 +23,7 @@ RUN apt-get update -qq && apt-get install -y wget
 COPY . fineract
 WORKDIR /fineract
 
-RUN ./gradlew -PautomatedBuild=true --no-daemon -q -x rat -x test bootJar
+RUN ./gradlew bootJar
 
 WORKDIR /fineract/target
 RUN jar -xf /fineract/build/libs/fineract-provider*.jar
