@@ -97,9 +97,9 @@ public class TenantDatabaseUpgradeService {
      */
     private void upgradeTenantDB() {
         String dbHostname = getEnvVar("FINERACT_DEFAULT_TENANTDB_HOSTNAME", "localhost");
-        String dbPort = getEnvVar("FINERACT_DEFAULT_TENANTDB_PORT", "3306");
-        String dbUid = getEnvVar("FINERACT_DEFAULT_TENANTDB_UID", "root");
-        String dbPwd = getEnvVar("FINERACT_DEFAULT_TENANTDB_PWD", "mysql");
+        String dbPort = getEnvVar("FINERACT_DEFAULT_TENANTDB_PORT", "3305");
+        String dbUid = getEnvVar("FINERACT_DEFAULT_TENANTDB_UID", "asmau");
+        String dbPwd = getEnvVar("FINERACT_DEFAULT_TENANTDB_PWD", "password");
         LOG.info("upgradeTenantDB: FINERACT_DEFAULT_TENANTDB_HOSTNAME = {}, FINERACT_DEFAULT_TENANTDB_PORT = {}", dbHostname, dbPort);
 
         final Flyway flyway = Flyway.configure().dataSource(tenantDataSource).locations("sql/migrations/list_db").outOfOrder(true)
