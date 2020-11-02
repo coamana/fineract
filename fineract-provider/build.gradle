@@ -787,8 +787,8 @@ dependencies {
 // https://docs.groovy-lang.org/latest/html/api/groovy/sql/Sql.html
 import groovy.sql.Sql
 
-project.ext.mysqlUser='asmau'
-project.ext.mysqlPassword='password'
+project.ext.mysqlUser='asmau@fineract'
+project.ext.mysqlPassword='Password123'
 
 configurations {
     driver
@@ -805,7 +805,7 @@ configurations.driver.each {File file ->
 task createDB {
     description= "Creates the Database. Needs database name to be passed (like: -PdbName=someDBname)"
     doLast {
-        def sql = Sql.newInstance( 'jdbc:mysql:thin://localhost:3305/', mysqlUser, mysqlPassword, 'org.drizzle.jdbc.DrizzleDriver' )
+        def sql = Sql.newInstance( 'jdbc:sqlserver://fineract.database.windows.net:1433', mysqlUser, mysqlPassword, 'org.drizzle.jdbc.DrizzleDriver' )
         sql.execute( 'create database '+"`$dbName`" )
     }
 }
@@ -813,15 +813,15 @@ task createDB {
 task dropDB {
     description= "Drops the specified database. The database name has to be passed (like: -PdbName=someDBname)"
     doLast {
-        def sql = Sql.newInstance( 'jdbc:mysql:thin://localhost:3305/', mysqlUser, mysqlPassword, 'org.drizzle.jdbc.DrizzleDriver' )
+        def sql = Sql.newInstance( 'jdbc:sqlserver://fineract.database.windows.net:1433', mysqlUser, mysqlPassword, 'org.drizzle.jdbc.DrizzleDriver' )
         sql.execute( 'DROP DATABASE '+"`$dbName`")
     }
 }
 task setBlankPassword {
     doLast {
-        def sql = Sql.newInstance( 'jdbc:mysql:thin://localhost:3305/', mysqlUser, mysqlPassword, 'org.drizzle.jdbc.DrizzleDriver' )
+        def sql = Sql.newInstance( 'jdbc:sqlserver://fineract.database.windows.net:1433', mysqlUser, mysqlPassword, 'org.drizzle.jdbc.DrizzleDriver' )
         sql.execute('USE `fineract_tenants`')
-        sql.execute('UPDATE fineract_tenants.tenants SET schema_server = \'localhost\', schema_server_port = \'3305\', schema_username = \'mifos\', schema_password = \'mysql\' WHERE id=1;')
+        sql.execute('UPDATE fineract_tenants.tenants SET schema_server = \'fineract.database.windows.net\', schema_server_port = \'1433\', schema_username = \'asmau\', schema_password = \'password\' WHERE id=1;')
     }
 }
 

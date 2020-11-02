@@ -88,10 +88,10 @@ CREATE TABLE `tenants` (
   `joined_date` date DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `lastmodified_date` datetime DEFAULT NULL,
-  `schema_server` varchar(100) NOT NULL DEFAULT 'localhost',
-  `schema_server_port` varchar(10) NOT NULL DEFAULT '3305',
-  `schema_username` varchar(100) NOT NULL DEFAULT 'asmau',
-  `schema_password` varchar(100) NOT NULL DEFAULT 'password',
+  `schema_server` varchar(100) NOT NULL DEFAULT 'fineract.database.windows.net',
+  `schema_server_port` varchar(10) NOT NULL DEFAULT '1433',
+  `schema_username` varchar(100) NOT NULL DEFAULT 'asmau@fineract',
+  `schema_password` varchar(100) NOT NULL DEFAULT 'Password123%&',
   `auto_update` tinyint NOT NULL DEFAULT '1',
   `pool_initial_size` INT DEFAULT 5,
   `pool_validation_interval` INT DEFAULT 30000,
@@ -117,7 +117,7 @@ CREATE TABLE `tenants` (
 LOCK TABLES `tenants` WRITE;
 /*!40000 ALTER TABLE `tenants` DISABLE KEYS */;
 INSERT INTO `tenants` VALUES 
-(1,'default','default','fineract_default','Asia/Kolkata',NULL,NULL,NULL,NULL,'localhost','3305','asmau','password',1,5,30000,1,60,1,50,1,40,20,10,60,34000,60000);
+(1,'default','default','fineract_default','Asia/Kolkata',NULL,NULL,NULL,NULL,'localhost','1433','asmau@fineract','Password123%&',1,5,30000,1,60,1,50,1,40,20,10,60,34000,60000);
 /*!40000 ALTER TABLE `tenants` ENABLE KEYS */;
 UNLOCK TABLES;
 
