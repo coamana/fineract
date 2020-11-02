@@ -312,6 +312,7 @@ spotless {
 // https://github.com/eskatos/creadur-rat-gradle
 rat {
     verbose = false
+    failOnError = false
     reportDir = new File(buildDir,'reports/rat')
     excludes = [
         '**/*.launch',
