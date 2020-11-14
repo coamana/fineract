@@ -52,7 +52,7 @@ public class JDBCDriverConfig {
 
     public String constructProtocol(String schemaServer, String schemaServerPort, String schemaName) {
         final String url = new StringBuilder(protocol).append(":").append(subProtocol).append("://").append(schemaServer).append(':')
-                .append(schemaServerPort).append('/').append(schemaName).toString();
+                .append(schemaServerPort).append('/').append(schemaName).append("?serverTimezone=UTC&requireSSL=false").toString();
         return url;
     }
 }
