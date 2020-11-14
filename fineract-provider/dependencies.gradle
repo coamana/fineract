@@ -66,6 +66,7 @@ dependencies {
 
             'org.drizzle.jdbc:drizzle-jdbc',
             'org.flywaydb:flyway-core',
+            'mysql:mysql-connector-java',
 
             'com.github.librepdf:openpdf',
             'com.github.spullara.mustache.java:compiler',

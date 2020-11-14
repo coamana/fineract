@@ -26,6 +26,9 @@ buildDir = new File(rootProject.projectDir, "../build")
 repositories {
     jcenter()
     mavenCentral()
+    flatDir{
+        dir 'libs'
+    }
 }
 
 project.ext.jerseyVersion = '1.19.4'
@@ -39,6 +42,9 @@ buildscript {
         jcenter()
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
+        flatDir{
+            dir 'libs'
+        }
     }
 
     dependencies {
@@ -57,6 +63,8 @@ buildscript {
         classpath "com.diffplug.spotless:spotless-plugin-gradle:5.6.1"
         classpath "io.swagger.core.v3:swagger-gradle-plugin:2.1.5"
         classpath "gradle.plugin.org.hidetake:gradle-swagger-generator-plugin:2.18.2"
+        classpath "mysql:mysql-connector-java:8.0.22"
+
     }
 }
 
@@ -129,7 +137,7 @@ dependencyManagement {
         dependency 'org.mock-server:mockserver-junit-jupiter:5.11.1'
         dependency 'org.webjars.npm:swagger-ui-dist:3.35.1'
         dependency 'org.webjars:webjars-locator-core:0.46'
-
+        dependency 'mysql:mysql-connector-java:8.0.22'
         dependency ('org.flywaydb:flyway-core:7.0.0') {
             // https://issues.apache.org/jira/browse/FINERACT-1172
             // https://github.com/apache/fineract/pull/1355
@@ -201,6 +209,7 @@ openjpa {
         enforcePropertyRestrictions true
     }
 }
+
 
 // Configuration for Swagger documentation generation task
 // https://github.com/swagger-api/swagger-core/tree/master/modules/swagger-gradle-plugin
@@ -786,15 +795,18 @@ dependencies {
 // https://docs.groovy-lang.org/latest/html/api/groovy/sql/Sql.html
 import groovy.sql.Sql
 
-project.ext.mysqlUser='asmau'
-project.ext.mysqlPassword='password'
+
+project.ext.mysqlUser='asmau@fineract12'
+project.ext.mysqlPassword='Password123'
 
 configurations {
     driver
 }
 dependencies {
-    driver 'org.drizzle.jdbc:drizzle-jdbc:1.4'
+    // https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc
+    driver 'mysql:mysql-connector-java:8.0.22'
 }
+
 
 URLClassLoader loader = GroovyObject.class.classLoader
 configurations.driver.each {File file ->
@@ -804,7 +816,7 @@ configurations.driver.each {File file ->
 task createDB {
     description= "Creates the Database. Needs database name to be passed (like: -PdbName=someDBname)"
     doLast {
-        def sql = Sql.newInstance( 'jdbc:mysql:thin://localhost:3305/', mysqlUser, mysqlPassword, 'org.drizzle.jdbc.DrizzleDriver' )
+        def sql = Sql.newInstance( 'jdbc:mysql://fineract12.mysql.database.azure.com:3306/?requireSSL=true&serverTimezone=UTC', 'asmau@fineract12', 'Password123', 'com.mysql.cj.jdbc.Driver' )
         sql.execute( 'create database '+"`$dbName`" )
     }
 }
@@ -812,15 +824,16 @@ task createDB {
 task dropDB {
     description= "Drops the specified database. The database name has to be passed (like: -PdbName=someDBname)"
     doLast {
-        def sql = Sql.newInstance( 'jdbc:mysql:thin://localhost:3305/', mysqlUser, mysqlPassword, 'org.drizzle.jdbc.DrizzleDriver' )
+        def sql = Sql.newInstance( 'jdbc:mysql://fineract12.mysql.database.azure.com:3306/?requireSSL=true&serverTimezone=UTC', 'asmau@fineract12', 'Password123', 'com.mysql.cj.jdbc.Driver' )
         sql.execute( 'DROP DATABASE '+"`$dbName`")
     }
 }
+
 task setBlankPassword {
     doLast {
-        def sql = Sql.newInstance( 'jdbc:mysql:thin://localhost:3305/', mysqlUser, mysqlPassword, 'org.drizzle.jdbc.DrizzleDriver' )
+        def sql = Sql.newInstance( 'jdbc:mysql://fineract12.mysql.database.azure.com:3306/?requireSSL=true&serverTimezone=UTC', mysqlUser, mysqlPassword, 'com.microsoft.sqlserver.jdbc.SQLServerDriver' )
         sql.execute('USE `fineract_tenants`')
-        sql.execute('UPDATE fineract_tenants.tenants SET schema_server = \'localhost\', schema_server_port = \'3305\', schema_username = \'mifos\', schema_password = \'mysql\' WHERE id=1;')
+        sql.execute('UPDATE fineract_tenants.tenants SET schema_server = \'fineract12.mysql.database.azure.com\', schema_server_port = \'3306\', schema_username = \'asmau\', schema_password = \'Password123\' WHERE id=1;')
     }
 }
 
