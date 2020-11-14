@@ -81,6 +81,7 @@ public class TomcatJdbcDataSourcePerTenantService implements RoutingDataSourceSe
                 tenantConnectionObj.getSchemaServerPort(), tenantConnectionObj.getSchemaName());
 
         HikariConfig config = new HikariConfig();
+        // config.setDataSourceClassName("com.microsoft.sqlserver.jdbc.SQLServerDataSource");
         config.setDriverClassName(this.driverConfig.getDriverClassName());
         config.setPoolName(tenantConnectionObj.getSchemaName() + "_pool");
         config.setJdbcUrl(jdbcUrl);

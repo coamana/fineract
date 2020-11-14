@@ -20,11 +20,11 @@
 RENAME TABLE tenants to temp_tenants;
 
 create table tenant_server_connections(`id` BIGINT NOT NULL AUTO_INCREMENT,
-    `schema_server` VARCHAR(100) NOT NULL DEFAULT 'localhost',
+    `schema_server` VARCHAR(100) NOT NULL DEFAULT 'fineract12.mysql.database.azure.com',
     `schema_name` VARCHAR(100) NOT NULL,
     `schema_server_port` VARCHAR(10) NOT NULL DEFAULT '3306',
-    `schema_username` VARCHAR(100) NOT NULL DEFAULT 'root',
-    `schema_password` VARCHAR(100) NOT NULL DEFAULT 'mysql',
+    `schema_username` VARCHAR(100) NOT NULL DEFAULT 'asmau@fineract12',
+    `schema_password` VARCHAR(100) NOT NULL DEFAULT 'Password123',
     `auto_update` tinyint NOT NULL DEFAULT '1',
     `pool_initial_size` INT NULL DEFAULT '5',
     `pool_validation_interval` INT NULL DEFAULT '30000',

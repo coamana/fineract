@@ -51,10 +51,10 @@ CREATE TABLE `tenants` (
   `joined_date` date DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `lastmodified_date` datetime DEFAULT NULL,
-  `schema_server` varchar(100) NOT NULL DEFAULT 'fineract.database.windows.net',
-  `schema_server_port` varchar(10) NOT NULL DEFAULT '1433',
-  `schema_username` varchar(100) NOT NULL DEFAULT 'asmau@fineract',
-  `schema_password` varchar(100) NOT NULL DEFAULT 'Password123%&',
+  `schema_server` varchar(100) NOT NULL DEFAULT 'fineract12.mysql.database.azure.com',
+  `schema_server_port` varchar(10) NOT NULL DEFAULT '3306',
+  `schema_username` varchar(100) NOT NULL DEFAULT 'asmau@fineract12',
+  `schema_password` varchar(100) NOT NULL DEFAULT 'Password123',
   `auto_update` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=UTF8MB4;

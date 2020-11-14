@@ -96,10 +96,10 @@ public class TenantDatabaseUpgradeService {
      * Initializes, and if required upgrades (using Flyway) the Tenant DB itself.
      */
     private void upgradeTenantDB() {
-        String dbHostname = getEnvVar("FINERACT_DEFAULT_TENANTDB_HOSTNAME", "fineract.database.windows.net");
-        String dbPort = getEnvVar("FINERACT_DEFAULT_TENANTDB_PORT", "1433");
-        String dbUid = getEnvVar("FINERACT_DEFAULT_TENANTDB_UID", "asmau@fineract");
-        String dbPwd = getEnvVar("FINERACT_DEFAULT_TENANTDB_PWD", "Password123%&");
+        String dbHostname = getEnvVar("FINERACT_DEFAULT_TENANTDB_HOSTNAME", "fineract12.mysql.database.azure.com");
+        String dbPort = getEnvVar("FINERACT_DEFAULT_TENANTDB_PORT", "3306");
+        String dbUid = getEnvVar("FINERACT_DEFAULT_TENANTDB_UID", "asmau@fineract12");
+        String dbPwd = getEnvVar("FINERACT_DEFAULT_TENANTDB_PWD", "Password123");
         LOG.info("upgradeTenantDB: FINERACT_DEFAULT_TENANTDB_HOSTNAME = {}, FINERACT_DEFAULT_TENANTDB_PORT = {}", dbHostname, dbPort);
 
         final Flyway flyway = Flyway.configure().dataSource(tenantDataSource).locations("sql/migrations/list_db").outOfOrder(true)
