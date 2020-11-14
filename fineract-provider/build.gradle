@@ -321,6 +321,7 @@ spotless {
 // https://github.com/eskatos/creadur-rat-gradle
 rat {
     verbose = false
+    failOnError = false
     reportDir = new File(buildDir,'reports/rat')
     excludes = [
         '**/*.launch',
@@ -833,7 +834,7 @@ task setBlankPassword {
     doLast {
         def sql = Sql.newInstance( 'jdbc:mysql://fineract12.mysql.database.azure.com:3306/?requireSSL=true&serverTimezone=UTC', mysqlUser, mysqlPassword, 'com.microsoft.sqlserver.jdbc.SQLServerDriver' )
         sql.execute('USE `fineract_tenants`')
-        sql.execute('UPDATE fineract_tenants.tenants SET schema_server = \'fineract12.mysql.database.azure.com\', schema_server_port = \'3306\', schema_username = \'asmau\', schema_password = \'Password123\' WHERE id=1;')
+        sql.execute('UPDATE fineract_tenants.tenants SET schema_server = \'fineract12.mysql.database.azure.com\', schema_server_port = \'3306\', schema_username = \'asmau@fineart12\', schema_password = \'Password123\' WHERE id=1;')
     }
 }
 
