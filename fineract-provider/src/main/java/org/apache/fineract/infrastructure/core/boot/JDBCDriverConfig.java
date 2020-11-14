@@ -29,7 +29,7 @@ public class JDBCDriverConfig {
 
     private static final String DRIVER_CLASS_PROPERTYNAME = "DRIVERCLASS_NAME";
     private static final String PROTOCOL_PROPERTYNAME = "PROTOCOL";
-    // private static final String SUBPROTOCOL_PROPERTYNAME = "SUB_PROTOCOL";
+    private static final String SUBPROTOCOL_PROPERTYNAME = "SUB_PROTOCOL";
 
     private String driverClassName;
     private String protocol;
@@ -43,7 +43,7 @@ public class JDBCDriverConfig {
         Environment environment = context.getEnvironment();
         driverClassName = environment.getProperty(DRIVER_CLASS_PROPERTYNAME);
         protocol = environment.getProperty(PROTOCOL_PROPERTYNAME);
-        // subProtocol = environment.getProperty(SUBPROTOCOL_PROPERTYNAME);
+        subProtocol = environment.getProperty(SUBPROTOCOL_PROPERTYNAME);
     }
 
     public String getDriverClassName() {
@@ -51,8 +51,8 @@ public class JDBCDriverConfig {
     }
 
     public String constructProtocol(String schemaServer, String schemaServerPort, String schemaName) {
-        final String url = new StringBuilder(protocol).append("://").append(schemaServer).append(':').append(schemaServerPort).append('/')
-                .append(schemaName).toString();
+        final String url = new StringBuilder(protocol).append(":").append(subProtocol).append("://").append(schemaServer).append(':')
+                .append(schemaServerPort).append('/').append(schemaName).toString();
         return url;
     }
 }
