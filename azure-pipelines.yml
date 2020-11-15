@@ -1,0 +1,6 @@
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Microsoft Azure Sponsorship'
+    appType: webAppLinux
+    appName: 'coamana-mifos'
+    package: $(System.DefaultWorkingDirectory)/**/*.war 

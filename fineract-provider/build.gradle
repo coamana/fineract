@@ -64,9 +64,11 @@ buildscript {
         classpath "io.swagger.core.v3:swagger-gradle-plugin:2.1.5"
         classpath "gradle.plugin.org.hidetake:gradle-swagger-generator-plugin:2.18.2"
         classpath "mysql:mysql-connector-java:8.0.22"
+        classpath 'lenala.azure:azure-webapp-gradle-plugin:1.0.1'
 
     }
 }
+
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: "org.nosphere.apache.rat"
@@ -91,6 +93,9 @@ apply plugin: "io.swagger.core.v3.swagger-gradle-plugin"
 apply plugin: "org.hidetake.swagger.generator"
 apply plugin: 'distribution'
 apply plugin: 'signing'
+apply plugin: 'lenala.azure.azurewebapp'
+
+
 
 dependencyManagement {
     imports {
@@ -1017,4 +1022,23 @@ task buildSwaggerCodeFineract(type:Exec, dependsOn: [
     workingDir '../build/swagger-code-fineract'
     executable 'sh'
     args '-c', 'chmod +x gradlew && ./gradlew clean build'
+}
+
+azureWebApp {
+    resourceGroup = 'myResourceGroup'
+    appName = 'coamana-mifos'
+    pricingTier = 'P1v2'
+    region = 'Central US'
+    appService = {
+        type = 'linux'
+        javaWebContainer = 'Tomcat 9.0'
+        javaVersion = '11'
+        runtimeStack='TOMCAT 9.0-jre8'
+    }
+    authentication = {
+        type = 'azurecli'
+    }
+    deployment = {
+        type = 'war'
+    }
 }
